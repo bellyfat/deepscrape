@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  scraper-api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # You can uncomment and set these values directly or use a .env file
+      # - API_KEY=your-api-key-here
+      # - MAX_TIMEOUT=60000
+      # - BLOCK_RESOURCES=true
+      # - BLOCK_ADS=true
+    volumes:
+      # Mount these directories for logs and persistent data
+      - ./logs:/app/logs
+      # Uncomment if you have a .env file
+      # - ./.env:/app/.env
+    restart: unless-stopped
+    # Increase shared memory size for browser instance
+    shm_size: 1gb
+    # Optional resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 2G
+
+# Create a custom network for services
+networks:
+  default:
+    driver: bridge 
